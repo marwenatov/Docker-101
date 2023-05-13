@@ -1,7 +1,7 @@
 # Docker 101
 
-Docker : Hands-on Workshop 
- 
+Docker : Atelier pratique
+
 # Installer Docker : 
 
 Linux (Ubuntu):  
@@ -14,48 +14,48 @@ MacOS
 Windows 
 ```Installer docker desktop ```
  
-Vérifier l’installation : 
+Vérifiez l’installation : 
 
 ```$ docker –version ```
 
 # Exécuter un programme en utilisant Docker :
 
 ```$ docker run hello-world ```
-# Create a Dockerfile, Build a Docker Image : 
+# Créer un Dockerfile, Construire une image Docker : 
 
 ```
 $ mkdir my-docker-project 
 $ cd my-docker-project 
 ```
 
-Next, create a new file in this directory named Dockerfile with the following content: 
+Ensuite, créez un nouveau fichier dans ce répertoire nommé Dockerfile avec le contenu suivant : 
 
 ```
-# Use an official Python runtime as a parent image 
+# Utilisez un runtime Python officiel comme image parente 
 FROM python:3.8-slim-buster 
   
-# Set the working directory in the container to /app 
+# Définissez le répertoire de travail dans le conteneur sur /app 
 WORKDIR /app 
   
-# Add the current directory contents into the container at /app 
+# Ajoutez le contenu du répertoire actuel dans le conteneur à /app 
 ADD . /app 
   
-# Install any needed packages specified in requirements.txt 
+# Installez les packages nécessaires spécifiés dans requirements.txt 
 RUN pip install --no-cache-dir -r requirements.txt 
   
-# Make port 80 available to the world outside this container 
+# Rendez le port 80 disponible pour le monde extérieur à ce conteneur 
 EXPOSE 80 
   
-# Define environment variable 
+# Définir une variable d'environnement 
 ENV NAME World 
   
-# Run app.py when the container launches 
+# Exécutez app.py lorsque le conteneur se lance 
 CMD ["python", "app.py"] 
 ```
-Next, create a requirements.txt file with any Python packages your application needs. For example:
+Ensuite, créez un fichier requirements.txt avec tous les packages Python dont votre application a besoin. Par exemple:
 
 ```flask```
-And finally, create a simple app.py Flask application : 
+Et enfin, créez une simple application Flask app.py : 
 ``` 
 from flask import Flask 
 from os import environ 
@@ -70,103 +70,103 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0') 
 ```
 
-Now, you can build your Docker image with the docker build command, 
-This command tells Docker to build a Docker image from the Dockerfile in the current directory and to tag (-t) the image with the name my-python-app.
+Maintenant, vous pouvez construire votre image Docker avec la commande docker build, 
+Cette commande indique à Docker de construire une image Docker à partir du Dockerfile dans le répertoire actuel et de marquer (-t) l'image avec le nom my-python-app.
 
 ```$ docker build -t my-python-app . ```
 
-You can then run a container from your new image with the docker run command:
+Vous pouvez ensuite exécuter un conteneur à partir de votre nouvelle image avec la commande docker run:
 
 ``` $ docker run -p 4000:5000 my-python-app```
 
 
-# Run, Inspect, Stop and Remove a Docker Container:
-You can run a Docker container from an image using the docker run command. Here's an example:
+# Exécutez, Inspectez, Arrêtez et Supprimez un Conteneur Docker :
+Vous pouvez exécuter un conteneur Docker à partir d'une image en utilisant la commande docker run. Voici un exemple :
 
 ```
 $ docker run -p 4000:5000 my-python-app
 ```
-You can inspect the details of a running Docker container using the docker inspect command.
-This command takes the name or ID of a container and returns a large JSON object with all the configuration information of the container.
+Vous pouvez inspecter les détails d'un conteneur Docker en cours d'exécution en utilisant la commande docker inspect.
+Cette commande prend le nom ou l'ID d'un conteneur et renvoie un grand objet JSON avec toutes les informations de configuration du conteneur.
 
-Here's how you can use it:
+Voici comment vous pouvez l'utiliser :
 
 ``` $ docker inspect <container_id> ```
 
-You can stop a running Docker container using the docker stop command:
+Vous pouvez arrêter un conteneur Docker en cours d'exécution en utilisant la commande docker stop :
 
 ``` $ docker stop <container_id> ```
 
-Once a container is stopped, it's not automatically removed unless you ran it with the --rm option. To remove a stopped container, use the docker rm command:
+Une fois qu'un conteneur est arrêté, il n'est pas automatiquement supprimé à moins que vous l'ayez exécuté avec l'option --rm. Pour supprimer un conteneur arrêté, utilisez la commande docker rm :
 
-``` $ docker stop <container_id> ```
+``` $ docker rm <container_id> ```
 
 
-# Create a Docker Bridge Network and Connect Two Containers
+# Créez un réseau de pont Docker et connectez deux conteneurs
 
-1.Create a Network: First, create a network using the docker network create command. We'll name our network "my-network":
+1. Créer un réseau : D'abord, créez un réseau en utilisant la commande docker network create. Nous nommerons notre réseau "my-network" :
 
 ``` 
 $ docker network create my-network
 ```
 
-2. Run Containers Inside the Network
-Next, let's run two containers inside this network. We'll use the busybox image, which is a small image that's useful for debugging:
+2. Exécutez des conteneurs dans le réseau
+Ensuite, lançons deux conteneurs dans ce réseau. Nous utiliserons l'image busybox, qui est une petite image utile pour le débogage :
 
 ```
 docker run -d --name container1 --network my-network busybox sleep 3600
 docker run -d --name container2 --network my-network busybox sleep 3600
 ```
 
-These commands tell Docker to run two containers, named "container1" and "container2", in the background. 
-They will run the sleep 3600 command, which just keeps them alive for an hour (3600 seconds).
+Ces commandes indiquent à Docker d'exécuter deux conteneurs, nommés "container1" et "container2", en arrière-plan. 
+Ils exécuteront la commande sleep 3600, qui les maintient en vie pendant une heure (3600 secondes).
 
-Now, you can use the docker exec command to run a command inside one of the containers. We'll run a ping command from "container1" to "container2":
+Maintenant, vous pouvez utiliser la commande docker exec pour exécuter une commande à l'intérieur de l'un des conteneurs. Nous lancerons une commande ping de "container1" à "container2" :
 
 ```
 docker exec container1 ping -c 4 container2
 ```
 
-This command tells Docker to execute the ping -c 4 container2 command inside "container1". The ping command will send 4 packets to "container2".
+Cette commande indique à Docker d'exécuter la commande ping -c 4 container2 à l'intérieur de "container1". La commande ping enverra 4 paquets à "container2".
 
-# Create a Docker Compose File and Run a Multi-Container Application
+# Créez un fichier Docker Compose et exécutez une application multi-conteneurs
 
-Let's create a simple multi-container application using Docker Compose. We'll create a Python Flask app and a Redis database in separate containers.
-First, create a directory for your project and navigate into it:
+Créons une simple application multi-conteneurs en utilisant Docker Compose. Nous créerons une application Flask Python et une base de données Redis dans des conteneurs séparés.
+D'abord, créez un répertoire pour votre projet et naviguez à l'intérieur :
 
 ``` $ mkdir my-compose-app && cd my-compose-app ```
 
-Next, create a Dockerfile with the following content:
+Ensuite, créez un Dockerfile avec le contenu suivant :
 
 ``` 
-# Use an official Python runtime as a parent image
+# Utilisez un runtime Python officiel comme image parente
 FROM python:3.7-slim
 
-# Set the working directory in the container to /app
+# Définissez le répertoire de travail dans le conteneur sur /app
 WORKDIR /app
 
-# Add the current directory contents into the container at /app
+# Ajoutez le contenu du répertoire actuel dans le conteneur à /app
 ADD . /app
 
-# Install any needed packages specified in requirements.txt
+# Installez les packages nécessaires spécifiés dans requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
+# Rendez le port 80 disponible pour le monde extérieur à ce conteneur
 EXPOSE 80
 
-# Run app.py when the container launches
+# Exécutez app.py lorsque le conteneur se lance
 CMD ["python", "app.py"]
 
 ``` 
 
-Create a requirements.txt file with the following content:
+Créez un fichier requirements.txt avec le contenu suivant :
 
 ``` 
 flask
 redis
 ```
 
-And a simple app.py Flask application:
+Et une simple application Flask app.py :
 
 ```  
 from flask import Flask
@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
 ```
 
-Now, create a docker-compose.yml file:
+Maintenant, créez un fichier docker -compose.yml avec le contenu suivant :
 
 ``` 
 version: '3'
@@ -198,23 +198,21 @@ services:
     image: "redis:alpine"
 ```
 
-Start multi-container app
+Démarrez l'application multi-conteneurs
 
 ```$ docker-compose up ```
 
-if everything is set up correctly, you should be able to visit localhost:5000 in your web browser and see a message: "Hello World! I have been seen 1 times."
+Si tout est correctement configuré, vous devriez pouvoir visiter localhost:5000 dans votre navigateur web et voir un message : "Hello World! I have been seen 1 times."
 
-Refresh the page, and the number should increment, demonstrating that data is being stored in the Redis container and retrieved by the Flask application in the web container.
+Rafraîchissez la page, et le nombre devrait augmenter, démontrant que les données sont stockées dans le conteneur Redis et récupérées par l'application Flask dans le conteneur web.
 
-# Security: Run a Container with Limited Capabilities
+# Sécurité : Exécuter un conteneur avec des capacités limitées
 
-1. Check Default Capabilities (This will show a list of capabilities under "Bounding set")
+1. Vérifier les capacités par défaut (Cela montrera une liste de capacités sous "Bounding set")
 
 ``` $ docker run --rm -it ubuntu:18.04 capsh --print ```
 
-2. Run a Container with Limited Capabilities:
-Now, let's run a container but drop all capabilities except for a few necessary ones. We'll keep CHOWN, DAC_OVERRIDE, and FOWNER, which are often required for basic operations:
-
+2. Exécuter un conteneur avec des capacités limitées:
+Maintenant, exécutons un conteneur mais supprimons toutes les capacités sauf quelques-unes nécessaires. Nous garderons CHOWN, DAC_OVERRIDE, et FOWNER, qui sont souvent nécessaires pour les opérations de base :
 
 ```$ docker run --rm -it --cap-drop ALL --cap-add CHOWN --cap-add DAC_OVERRIDE --cap-add FOWNER ubuntu:18.04 capsh --print ```
-
