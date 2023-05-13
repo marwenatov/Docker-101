@@ -128,3 +128,76 @@ docker exec container1 ping -c 4 container2
 ```
 
 This command tells Docker to execute the ping -c 4 container2 command inside "container1". The ping command will send 4 packets to "container2".
+
+# Create a Docker Compose File and Run a Multi-Container Application
+
+Let's create a simple multi-container application using Docker Compose. We'll create a Python Flask app and a Redis database in separate containers.
+First, create a directory for your project and navigate into it:
+
+``` $ mkdir my-compose-app && cd my-compose-app ```
+
+Next, create a Dockerfile with the following content:
+
+``` 
+# Use an official Python runtime as a parent image
+FROM python:3.7-slim
+
+# Set the working directory in the container to /app
+WORKDIR /app
+
+# Add the current directory contents into the container at /app
+ADD . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+
+``` 
+
+Create a requirements.txt file with the following content:
+
+``` 
+flask
+redis
+```
+
+And a simple app.py Flask application:
+
+```  
+from flask import Flask
+from redis import Redis
+
+app = Flask(__name__)
+redis = Redis(host='redis', port=6379)
+
+@app.route('/')
+def hello():
+    count = redis.incr('hits')
+    return f'Hello World! I have been seen {count} times.\n'
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=80)
+
+```
+
+Now, create a docker-compose.yml file:
+
+``` 
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:80"
+  redis:
+    image: "redis:alpine"
+```
+
+Start multi-container app
+
+```$ docker-compose up ```
