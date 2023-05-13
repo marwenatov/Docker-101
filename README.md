@@ -206,15 +206,4 @@ if everything is set up correctly, you should be able to visit localhost:5000 in
 
 Refresh the page, and the number should increment, demonstrating that data is being stored in the Redis container and retrieved by the Flask application in the web container.
 
-# Security: Run a Container with Limited Capabilities
-
-1. Check Default Capabilities (This will show a list of capabilities under "Bounding set")
-
-``` $ docker run --rm -it ubuntu:18.04 capsh --print ```
-
-2. Run a Container with Limited Capabilities:
-Now, let's run a container but drop all capabilities except for a few necessary ones. We'll keep CHOWN, DAC_OVERRIDE, and FOWNER, which are often required for basic operations:
-
-
-```$ docker run --rm -it --cap-drop ALL --cap-add CHOWN --cap-add DAC_OVERRIDE --cap-add FOWNER ubuntu:18.04 capsh --print ```
 
