@@ -201,3 +201,7 @@ services:
 Start multi-container app
 
 ```$ docker-compose up ```
+
+if everything is set up correctly, you should be able to visit localhost:5000 in your web browser and see a message: "Hello World! I have been seen 1 times."
+
+Refresh the page, and the number should increment, demonstrating that data is being stored in the Redis container and retrieved by the Flask application in the web container.
