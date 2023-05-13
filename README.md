@@ -77,11 +77,22 @@ This command tells Docker to build a Docker image from the Dockerfile in the cur
 
 You can then run a container from your new image with the docker run command:
 
-```docker run -p 4000:5000 my-python-app```
+``` $ docker run -p 4000:5000 my-python-app```
 
 
 # Run, Inspect, Stop and Remove a Docker Container:
 You can run a Docker container from an image using the docker run command. Here's an example:
+
 ```
-docker run -p 4000:5000 my-python-app
+$ docker run -p 4000:5000 my-python-app
 ```
+You can inspect the details of a running Docker container using the docker inspect command.
+This command takes the name or ID of a container and returns a large JSON object with all the configuration information of the container.
+
+Here's how you can use it:
+
+``` docker inspect <container_id> ```
+
+You can stop a running Docker container using the docker stop command:
+
+``` docker stop <container_id> ```
