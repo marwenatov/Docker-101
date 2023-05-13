@@ -2,7 +2,8 @@
 
 Docker : Hands-on Workshop 
  
-Installer Docker : 
+# Installer Docker : 
+
 Linux (Ubuntu):  
 ```
 $ sudo apt-get update 
@@ -14,16 +15,21 @@ Windows
 ```Installer docker desktop ```
  
 Vérifier l’installation : 
+
 ```$ docker –version ```
-Exécuter un programme en utilisant Docker :
+
+# Exécuter un programme en utilisant Docker :
+
 ```$ docker run hello-world ```
-Create a Dockerfile, Build a Docker Image, and Push It to Docker Hub : 
+# Create a Dockerfile, Build a Docker Image : 
+
 ```
 $ mkdir my-docker-project 
 $ cd my-docker-project 
 ```
 
 Next, create a new file in this directory named Dockerfile with the following content: 
+
 ```
 # Use an official Python runtime as a parent image 
 FROM python:3.8-slim-buster 
@@ -46,7 +52,8 @@ ENV NAME World
 # Run app.py when the container launches 
 CMD ["python", "app.py"] 
 ```
-Next, create a requirements.txt file with any Python packages your application needs. For example: 
+Next, create a requirements.txt file with any Python packages your application needs. For example:
+
 ```flask```
 And finally, create a simple app.py Flask application : 
 ``` 
@@ -61,3 +68,15 @@ def hello():
   
 if __name__ == "__main__": 
     app.run(host='0.0.0.0') 
+```
+
+Now, you can build your Docker image with the docker build command, 
+This command tells Docker to build a Docker image from the Dockerfile in the current directory and to tag (-t) the image with the name my-python-app.
+
+```docker build -t my-python-app . ```
+
+You can then run a container from your new image with the docker run command:
+
+```docker run -p 4000:5000 my-python-app``
+
+
