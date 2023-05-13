@@ -73,7 +73,7 @@ if __name__ == "__main__":
 Now, you can build your Docker image with the docker build command, 
 This command tells Docker to build a Docker image from the Dockerfile in the current directory and to tag (-t) the image with the name my-python-app.
 
-```docker build -t my-python-app . ```
+```$ docker build -t my-python-app . ```
 
 You can then run a container from your new image with the docker run command:
 
