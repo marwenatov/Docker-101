@@ -77,6 +77,6 @@ This command tells Docker to build a Docker image from the Dockerfile in the cur
 
 You can then run a container from your new image with the docker run command:
 
-```docker run -p 4000:5000 my-python-app``
+```docker run -p 4000:5000 my-python-app```
 
 
