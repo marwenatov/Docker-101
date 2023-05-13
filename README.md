@@ -104,3 +104,27 @@ Once a container is stopped, it's not automatically removed unless you ran it wi
 
 # Create a Docker Bridge Network and Connect Two Containers
 
+1.Create a Network: First, create a network using the docker network create command. We'll name our network "my-network":
+
+``` 
+$ docker network create my-network
+```
+
+2. Run Containers Inside the Network
+Next, let's run two containers inside this network. We'll use the busybox image, which is a small image that's useful for debugging:
+
+```
+docker run -d --name container1 --network my-network busybox sleep 3600
+docker run -d --name container2 --network my-network busybox sleep 3600
+```
+
+These commands tell Docker to run two containers, named "container1" and "container2", in the background. 
+They will run the sleep 3600 command, which just keeps them alive for an hour (3600 seconds).
+
+Now, you can use the docker exec command to run a command inside one of the containers. We'll run a ping command from "container1" to "container2":
+
+```
+docker exec container1 ping -c 4 container2
+```
+
+This command tells Docker to execute the ping -c 4 container2 command inside "container1". The ping command will send 4 packets to "container2".
