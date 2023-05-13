@@ -9,15 +9,22 @@ $ sudo apt-get update
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io 
 ```
 MacOS  
-$ brew install --cask docker (plus simple: installer docker desktop) 
+```$ brew install --cask docker (plus simple: installer docker desktop) ```
 Windows 
-Installer docker desktop  
- 	Vérifier l’installation : $ docker –version 
-Exécuter un programme en utilisant Docker : $ docker run hello-world 
+```Installer docker desktop ```
+ 
+Vérifier l’installation : 
+```$ docker –version ```
+Exécuter un programme en utilisant Docker :
+```$ docker run hello-world ```
 Create a Dockerfile, Build a Docker Image, and Push It to Docker Hub : 
-	$ mkdir my-docker-project 
+```
+$ mkdir my-docker-project 
 $ cd my-docker-project 
+```
+
 Next, create a new file in this directory named Dockerfile with the following content: 
+```
 # Use an official Python runtime as a parent image 
 FROM python:3.8-slim-buster 
   
@@ -38,10 +45,11 @@ ENV NAME World
   
 # Run app.py when the container launches 
 CMD ["python", "app.py"] 
+```
 Next, create a requirements.txt file with any Python packages your application needs. For example: 
-flask 
+```flask```
 And finally, create a simple app.py Flask application : 
- 
+``` 
 from flask import Flask 
 from os import environ 
   
@@ -53,7 +61,7 @@ def hello():
   
 if __name__ == "__main__": 
     app.run(host='0.0.0.0') 
- 
+
  
  
  
