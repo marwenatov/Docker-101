@@ -91,8 +91,14 @@ This command takes the name or ID of a container and returns a large JSON object
 
 Here's how you can use it:
 
-``` docker inspect <container_id> ```
+``` $ docker inspect <container_id> ```
 
 You can stop a running Docker container using the docker stop command:
 
-``` docker stop <container_id> ```
+``` $ docker stop <container_id> ```
+
+Once a container is stopped, it's not automatically removed unless you ran it with the --rm option. To remove a stopped container, use the docker rm command:
+
+``` $ docker stop <container_id> ```
+
+
