@@ -205,14 +205,3 @@ Démarrez l'application multi-conteneurs
 Si tout est correctement configuré, vous devriez pouvoir visiter localhost:5000 dans votre navigateur web et voir un message : "Hello World! I have been seen 1 times."
 
 Rafraîchissez la page, et le nombre devrait augmenter, démontrant que les données sont stockées dans le conteneur Redis et récupérées par l'application Flask dans le conteneur web.
-
-# Sécurité : Exécuter un conteneur avec des capacités limitées
-
-1. Vérifier les capacités par défaut (Cela montrera une liste de capacités sous "Bounding set")
-
-``` $ docker run --rm -it ubuntu:18.04 capsh --print ```
-
-2. Exécuter un conteneur avec des capacités limitées:
-Maintenant, exécutons un conteneur mais supprimons toutes les capacités sauf quelques-unes nécessaires. Nous garderons CHOWN, DAC_OVERRIDE, et FOWNER, qui sont souvent nécessaires pour les opérations de base :
-
-```$ docker run --rm -it --cap-drop ALL --cap-add CHOWN --cap-add DAC_OVERRIDE --cap-add FOWNER ubuntu:18.04 capsh --print ```
