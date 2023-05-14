@@ -102,7 +102,7 @@ Une fois qu'un conteneur est arrêté, il n'est pas automatiquement supprimé à
 ``` $ docker rm <container_id> ```
 
 
-# Créez un réseau de pont Docker et connectez deux conteneurs
+# Créez un réseau Bridge Docker et connectez deux conteneurs
 
 1. Créer un réseau : D'abord, créez un réseau en utilisant la commande docker network create. Nous nommerons notre réseau "my-network" :
 
